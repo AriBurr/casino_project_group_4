@@ -5,11 +5,14 @@ class Player
   attr_accessor :wallet, :name, :age
   def initialize()
     puts "Please enter name:"
+    print '> '
     @name = gets.strip
     puts "Please enter age:"
+    print '> '
     @age = gets.to_i
     age_verification()
     puts "How much money are you playing with?"
+    print '> '
     amount = gets.to_f
     @wallet = Wallet.new(amount)
   end
@@ -17,7 +20,7 @@ class Player
   def age_verification()
     if @age < MIN_AGE
       puts "Get out of here!"
-      exit(0)
+      exit 0
     end
   end
 
