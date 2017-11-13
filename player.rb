@@ -8,8 +8,10 @@ class Player
     @name = gets.strip
     puts "Please enter age:"
     @age = gets.to_i
-    @money = Wallet.new()
     age_verification()
+    puts "How much money are you playing with?"
+    amount = gets.to_f
+    @wallet = Wallet.new(amount)
   end
 
   def age_verification()
@@ -20,7 +22,7 @@ class Player
   end
 
   def check_amount()
-    puts @money.amount === 0 ? "You have no money!" : "You have money!"
+    puts @wallet.amount === 0 ? "You have no money!" : "You have money!"
   end
 
 end

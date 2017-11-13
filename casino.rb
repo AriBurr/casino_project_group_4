@@ -12,13 +12,13 @@ class Casino
   end
 
   def test()
-    puts "#{@player.name} has $#{@player.money.amount}"
+    puts "#{@player.name} has $#{@player.wallet.amount}"
     Roulette.new(@player, self)
   end
 
   def menu()
     puts "This is the casino!"
-      puts "#{@player.name} has $#{@player.money.amount}"
+      puts "#{@player.name} has $#{@player.wallet.amount}"
       @player.check_amount()
   end
 

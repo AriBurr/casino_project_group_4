@@ -38,7 +38,7 @@ class Roulette
       when 4
         spin_wheel()
       when 5
-        @player.money.change_wallet(100, "win")
+        @player.wallet.change_wallet(100, "win")
         @casino.menu()
       else
         puts "Invalid Input -- Please Try Again"
