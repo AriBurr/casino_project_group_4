@@ -4,12 +4,12 @@ class Wallet
     @amount = amount
   end
 
-  def add_wallet()
-    @amount += 100
+  def add_wallet(num)
+    @amount += num
   end
 
-  def sub_wallet()
-    @amount -= 100
+  def sub_wallet(num)
+    @amount -= num
   end
 
   #defaults to win, if it's a loss pass in 'loss' as 2nd argument
