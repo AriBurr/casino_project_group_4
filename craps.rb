@@ -52,4 +52,4 @@ class Craps
   end
 end
 
-# new_game = Craps.new('Jace')
+new_game = Craps.new('Jace')

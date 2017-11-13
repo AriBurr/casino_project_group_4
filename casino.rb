@@ -13,7 +13,7 @@ class Casino
   end
 
   def menu()
-    @options = ["Roulette", "Blackjack", "Slots"]
+    @options = ["Roulette", "Blackjack", "Slots", "Craps"]
     puts "What game would you like to play?"
     @options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}"}
     choice = gets.to_i
