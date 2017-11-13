@@ -7,11 +7,7 @@ require 'pry'
 class Casino
   attr_accessor :player
   def initialize()
-    puts "Please enter name:"
-    name = gets.strip
-    puts "Please enter age:"
-    age = gets.strip.to_i
-    @player = Player.new(name, age)
+    @player = Player.new()
     test()
   end
 
