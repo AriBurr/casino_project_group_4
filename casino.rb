@@ -18,15 +18,16 @@ class Casino
     choice = gets.to_i
     case choice
       when 1
-        Roulette.new(@player, self)
+        Roulette.new(@player)
       when 2
-        Blackjack.new(@player, self)
+        Blackjack.new(@player)
       when 3
-        Slots.new(@player, self)
+        Slots.new(@player)
       else
         "Invalid -- Please Try Again"
         menu()
     end
+    menu()
   end
 
   # puts "This is the casino!"

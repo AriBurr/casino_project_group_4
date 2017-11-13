@@ -3,8 +3,7 @@ require_relative 'roulette_data'
 
 class Roulette
   attr_accessor :player
-  def initialize(player, casino)
-    @casino = casino
+  def initialize(player)
     @player = player
     init_roulette()
   end
@@ -38,9 +37,8 @@ class Roulette
       when 4
         spin_wheel()
       when 5
-        binding.pry
-        @player.wallet.change_wallet(100, "win")
-        @casino.menu()
+        # @player.wallet.add_wallet()
+        return
       else
         puts "Invalid Input -- Please Try Again"
     end
