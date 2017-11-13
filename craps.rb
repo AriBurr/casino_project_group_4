@@ -1,13 +1,30 @@
+require 'colorize'
+require 'pry'
+
 class Craps
-  def initialize
-    puts 'Let\'s play Craps!'
+  attr_accessor :player
+  def initialize(player)
+    @player = player
+    puts "Let\'s play Craps, #{player}!"
     menu
   end
 
   def game
     puts 'This is the game function'
-    # Create the game
+    puts 'Press enter/return to roll the dice.'
+    input = $stdin.gets.chomp.downcase
+    if input == 'quit'
+      quit
+    end
+
   end
+
+
+  def quit
+    puts 'Thanks for playing!'
+    exit 0
+  end
+
 
   def menu
     puts '1.) To Play the game, press 1'
@@ -22,8 +39,7 @@ class Craps
       when '2' || include?('view') || include?('stats')
         user_stats
       when '3' || include?('quit')
-        puts 'Exiting the game...'
-        exit 0
+        quit
       else
         puts "Invalid user input #{selection}. Please try again"
     end
@@ -32,5 +48,8 @@ class Craps
   def user_stats
     puts 'This is the user stats function'
     # Create code to count how many wins & loses the player has
+    menu
   end
 end
+
+# new_game = Craps.new('Jace')

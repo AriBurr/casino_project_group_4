@@ -1,5 +1,6 @@
 require_relative 'player'
 require_relative 'roulette'
+require_relative 'craps'
 require 'colorize'
 require 'artii'
 require 'pry'
@@ -23,6 +24,8 @@ class Casino
         Blackjack.new(@player)
       when 3
         Slots.new(@player)
+      when 4
+        Craps.new(@player)
       else
         "Invalid -- Please Try Again"
         menu()
