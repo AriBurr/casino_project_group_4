@@ -3,6 +3,7 @@ require_relative 'roulette'
 require 'colorize'
 require 'artii'
 require 'pry'
+require_relative 'blackjack'
 
 class Casino
   attr_accessor :player
