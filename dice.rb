@@ -12,7 +12,11 @@ class Dice
    print "Die1: ", @die1, " Die2:", @die2
  end
 
+def get_sum
+  @sum = @die1 + @die2
+end
+
  def show_sum
-   print "Sum of dice is ", @die1 + @die2, ".\n"
+   print "Sum of die is #{get_sum}.\n"
    end
 end
