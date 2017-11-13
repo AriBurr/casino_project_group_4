@@ -1,11 +1,20 @@
 require 'colorize'
 require 'pry'
+require_relative 'player'
 
 class Craps
   attr_accessor :player
   def initialize(player)
     @player = player
     puts "Let\'s play Craps, #{player}!"
+    @player.check_amount
+    puts 'How much do you plan to play?'
+    play_amount = $stdin.gets.strip
+    if play_amount > @player.wallet.amount
+      puts 'You currently only have'
+    else
+      puts "Let's play!"
+    end
     menu
   end
 
