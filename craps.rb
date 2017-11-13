@@ -34,5 +34,3 @@ class Craps
     # Create code to count how many wins & loses the player has
   end
 end
-
-new_game = Craps.new
