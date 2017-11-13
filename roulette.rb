@@ -38,6 +38,7 @@ class Roulette
       when 4
         spin_wheel()
       when 5
+        binding.pry
         @player.wallet.change_wallet(100, "win")
         @casino.menu()
       else
