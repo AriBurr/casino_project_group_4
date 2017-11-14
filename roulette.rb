@@ -93,7 +93,7 @@ class Roulette
   end
 
   def bet_inside()
-    
+
     pairs = [[1, 2], [2, 3], [4, 5], [5, 6], [7, 8], [8, 9], [10, 11], [11, 12],
       [13, 14], [14, 15], [16, 17], [17,18], [19, 20], [20, 21], [22, 23], [23, 24],
       [25, 26], [26, 27], [28, 29], [29, 30], [31, 32], [32, 33], [34, 35], [35, 36]]
@@ -183,11 +183,13 @@ class Roulette
     puts "| Bets on the Table |".yellow
     puts "=====================".yellow
     @betting_profile.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
-    puts "Spinning the wheel...".cyan
+    puts "==========================".yellow
+    puts "| $ SPINNING THE WHEEL $ |".yellow
+    puts "==========================".yellow
     sleep(1)
     single_num = rand(1..36)
     sleep(1)
-    puts "The winning number is #{single_num}".cyan
+    puts "The winning number is".cyan + " " + "| ".light_blue + single_num.to_s.light_blue + " |".light_blue
     sleep(1)
     @betting_profile.each do |bet|
       if bet.is_a? String
