@@ -5,13 +5,13 @@ require 'pry'
 require_relative 'wallet'
 require_relative 'card'
 require_relative 'deck'
-require_relative 'casino'
 
 
 class Blackjack
   attr_accessor :player, :deck
-  def initialize(player)
+  def initialize(player, casino)
     @player = player
+    @casino = casino
     @deck = Deck.new
     #@casino = casino
     init_blackjack()
@@ -35,8 +35,7 @@ case action
   when 1
     deal()
   when 2
-    #@casino.menu
-    exit
+    @casino.menu
   else
     puts "Invalid Input -- Please Try Again"
   end
@@ -93,5 +92,5 @@ end
 # wait for hit or stay
 # deal one card
 # evaluate whether the combination of cards is above 21
-player = Player.new()
-Blackjack.new(player)
+# player = Player.new()
+# Blackjack.new(player)

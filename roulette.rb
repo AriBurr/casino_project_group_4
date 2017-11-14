@@ -93,6 +93,13 @@ class Roulette
   end
 
   def bet_inside()
+    
+    pairs = [[1, 2], [2, 3], [4, 5], [5, 6], [7, 8], [8, 9], [10, 11], [11, 12],
+      [13, 14], [14, 15], [16, 17], [17,18], [19, 20], [20, 21], [22, 23], [23, 24],
+      [25, 26], [26, 27], [28, 29], [29, 30], [31, 32], [32, 33], [34, 35], [35, 36]]
+    rows =[[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12], [13, 14, 15], [16, 17, 18],
+      [19, 20, 21], [22, 23, 24], [25, 26, 27], [28, 29, 30], [31, 32, 33], [34, 35, 36]]
+
     puts "You can put down whatever amount you want on an inside bet!".red
     inside_bets = ["Pick a single, 35:1 PAYOUT", "Pick a pair, 17:1 PAYOUT", "Pick a row, 11:1 PAYOUT"]
     inside_bets.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
@@ -110,31 +117,23 @@ class Roulette
         @bet_single = gets.to_i
         check_bet(single, @bet_single)
       when 2
-        puts "Pick a pair (ex. 1,2)"
+        pairs.each_with_index { |pair, i| puts "(#{i + 1}) #{pair}" }
+        puts "Pick a pair!"
         print "> "
-        @pair = gets.strip.split(",").map(&:to_i)
-        if @pair.length > 2
-          puts "Invalid Pair! No one cheats the House!".red
-          bet_inside()
-        else
-          puts "How much?"
-          print "> "
-          @bet_pair = gets.to_i
-          check_bet(@pair, @bet_pair)
-        end
+        @pair = pairs[gets.to_i - 1]
+        puts "How much?"
+        print "> "
+        @bet_pair = gets.to_i
+        check_bet(@pair, @bet_pair)
       when 3
-        puts "Pick a row (ex. 1,2,3)"
+        rows.each_with_index { |row, i| puts "(#{i + 1}) #{row}" }
+        puts "Pick a row!"
         print "> "
-        @row = gets.strip.split(",").map(&:to_i)
-        if @row.length > 3
-          puts "Invalid Row! No one cheats the House!".red
-          bet_inside()
-        else
-          puts "How much?"
-          print "> "
-          @bet_row = gets.to_i
-          check_bet(@row, @bet_row)
-        end
+        @row = rows[gets.to_i - 1]
+        puts "How much?"
+        print "> "
+        @bet_row = gets.to_i
+        check_bet(@row, @bet_row)
       when 4
         roulette_menu
       else
