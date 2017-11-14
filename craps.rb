@@ -82,7 +82,6 @@ class Craps
       if @roll == @point
           puts "Rolled a #{@roll}."
           puts "Player wins!"
-          puts "House looses."
           @win_qty += 1
           @wallet_amount += (@bet.to_f * 2)
           puts "You have made $#{@bet.to_f * 2}"
@@ -90,10 +89,9 @@ class Craps
         else
         if @roll == 7
           puts "Rolled a #{@roll}."
-          puts 'Player loses...'
+          puts "House wins!"
           @loss_qty +=  1
           isWon = true
-          puts "House wins!"
           @wallet_amount -= (@bet.to_f * 2)
           puts "You have lost $#{@bet.to_f * 2}"
           game_menu
@@ -156,18 +154,18 @@ class Craps
   selection = $stdin.gets.to_i
 
   case selection
-  when 1
-    game_one
-  when 2
-    user_stats
-  when 3
-    instructions
-  when 4
-    @casino.menu
-
-  else 
-    puts 'Invalid user input. Please try again.'
-    game_menu
-  end
+    when 1
+      game_one
+    when 2
+      user_stats
+    when 3
+      instructions
+    when 4
+      @player.wallet.amount = @wallet_amount
+      @casino.menu
+    else 
+      puts 'Invalid user input. Please try again.'
+      game_menu
+    end
   end
 end
