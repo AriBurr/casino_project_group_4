@@ -27,7 +27,7 @@ class Roulette
     puts "===================================".yellow
     display_roulette()
     @player.check_amount()
-    puts "#{@player.name} has $#{@player.wallet.amount.round(2)}"
+    puts "#{@player.name} has $#{@player.wallet.amount}"
     menu_options = ["Rules -- Please Read First", "Bet Outside", "Bet Inside", "Spin the Wheel!", "Back to Casino"]
     menu_options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}" }
     print "> "
@@ -40,7 +40,7 @@ class Roulette
       when 3
         bet_inside()
       when 4
-        spin_wheel()
+        spin_wheel(@bet, @bet_row, @bet_pair, @bet_single)
       when 5
         return
       else
@@ -54,17 +54,17 @@ class Roulette
     puts "======================".yellow
     puts "| Outside Bets - $10 |".yellow
     puts "======================".yellow
-    @outside_1_1 = ["even", "odd", "red", "blue", "1-18", "19-36"]
+    outside_1_1 = ["EVEN", "ODD", "RED", "BLUE", "1-18", "19-36"]
     puts "1:1 payout:".upcase
-    @outside_1_1.each { |bet| puts "* #{bet}" }
-    @outside_2_1 = ["1-12", "12-24", "24-36"]
+    outside_1_1.each { |bet| puts "* #{bet}" }
+    outside_2_1 = ["1-12", "12-24", "24-36"]
     puts "2:1 payout:".upcase
-    @outside_2_1.each { |bet| puts "* #{bet}" }
+    outside_2_1.each { |bet| puts "* #{bet}" }
     puts "===============".yellow
     puts "| Inside Bets |".yellow
     puts "===============".yellow
-    @inside_bets = ["Pick a single, 35:1 PAYOUT", "Pick a pair, 17:1 PAYOUT", "Pick a row, 11:1 PAYOUT"]
-    @inside_bets.each { |bet| puts "* #{bet}" }
+    inside_bets = ["Pick a single, 35:1 PAYOUT", "Pick a pair, 17:1 PAYOUT", "Pick a row, 11:1 PAYOUT"]
+    inside_bets.each { |bet| puts "* #{bet}" }
     puts "Press [enter] to continue!".cyan
     action = gets.strip
     if action == ""
@@ -74,113 +74,82 @@ class Roulette
 
   def bet_inside()
     puts "You can put down whatever amount you want on an inside bet!".red
-    @inside_bets = ["Pick a single, 35:1 PAYOUT", "Pick a pair, 17:1 PAYOUT", "Pick a row, 11:1 PAYOUT"]
-    @inside_bets.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
-    puts "Which inside bet would you like to make? Press [4] to return."
+    inside_bets = ["Pick a single, 35:1 PAYOUT", "Pick a pair, 17:1 PAYOUT", "Pick a row, 11:1 PAYOUT"]
+    inside_bets.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
+    puts "Which inside bet would you like to make? Press [4] to return.".blue
     print "> "
     choice = gets.to_i
     case choice
       when 1
-        @single_arr = []
+        single = []
         puts "Pick a single"
         print "> "
-        @single_arr << gets.to_i
+        single << gets.to_i
         puts "How much?"
         print "> "
         @bet_single = gets.to_i
-        if @player.wallet.amount < @bet_single
-          puts "You don't have enough money!"
-        else
-          @player.wallet.sub_wallet(@bet_single)
-          @betting_profile << @single_arr
-        end
+        check_bet(single, @bet_single)
       when 2
-        puts "Pick a pair (1,2)"
+        puts "Pick a pair (ex. 1,2)"
         print "> "
         @row = gets.strip.split(",").map(&:to_i)
         puts "How much?"
         print "> "
         @bet_row = gets.to_i
-        if @player.wallet.amount < @bet_row
-          puts "You don't have enough money!"
-        else
-          @player.wallet.sub_wallet(@bet_row)
-          @betting_profile << @row
-        end
+        check_bet(@row, @bet_row)
       when 3
-        puts "Pick a row (1,2,3)"
+        puts "Pick a row (ex. 1,2,3)"
         print "> "
-        @pair = gets.strip.split(",").map(&:to_i)
+        pair = gets.strip.split(",").map(&:to_i)
         puts "How much?"
         print "> "
         @bet_pair = gets.to_i
-        if @player.wallet.amount < @bet_pair
-          puts "You don't have enough money!"
-        else
-          @player.wallet.sub_wallet(@bet_pair)
-          @betting_profile << @pair
-        end
+        check_bet(pair, @bet_pair)
       when 4
         roulette_menu
       else
         "Invalid Input -- Please Try Again!"
+        bet_inside()
     end
-    bet_inside()
   end
 
   def bet_outside()
     @bet = 10
     puts "All outside bets are $10.".red
-    puts "Please select [1] 1:1 bets or [2] 2:1 bets. Press [3] to continue.".red
+    puts "Please select [1] 1:1 bets or [2] 2:1 bets. Press [3] to continue.".blue
     print "> "
     choice = gets.to_i
     case choice
       when 1
-        @outside_1_1 = ["even", "odd", "red", "blue", "1-18", "19-36"]
-        @outside_1_1.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
+        outside_1_1 = ["EVEN", "ODD", "RED", "BLUE", "1-18", "19-36"]
+        outside_1_1.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
         puts "Choose your bet:"
         print "> "
-        @outside_1_1_bet = gets.to_i
-        if @outside_1_1_bet === 5 || @outside_1_1_bet === 6
-          bet_arr = @outside_1_1[@outside_1_1_bet - 1].split("-").map(&:to_i)
+        outside_bet = gets.to_i
+        if outside_bet === 5 || outside_bet === 6
+          bet_arr = outside_1_1[outside_bet - 1].split("-").map(&:to_i)
           bet_range = (bet_arr[0]..bet_arr[1])
-          if @player.wallet.amount < @bet
-            puts "You don't have enough money!"
-          else
-            @player.wallet.sub_wallet(@bet)
-            @betting_profile << bet_range
-          end
+          check_bet(bet_range, @bet)
         else
-          if @player.wallet.amount < @bet
-            puts "You don't have enough money!"
-          else
-            @player.wallet.sub_wallet(@bet)
-            @betting_profile << @outside_1_1[@outside_1_1_bet - 1]
-          end
+          check_bet(outside_1_1[outside_bet - 1], @bet)
         end
       when 2
-        @outside_2_1 = ["1-12", "12-24", "24-36"]
-        @outside_2_1.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
+        outside_2_1 = ["1-12", "12-24", "24-36"]
+        outside_2_1.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
         puts "Choose your bet:"
         print "> "
-        bet_arr = @outside_2_1[gets.to_i - 1].split("-").map(&:to_i)
+        bet_arr = outside_2_1[gets.to_i - 1].split("-").map(&:to_i)
         bet_range = (bet_arr[0]..bet_arr[1])
-        if @player.wallet.amount < @bet
-          puts "You don't have enough money!"
-        else
-          @player.wallet.sub_wallet(@bet)
-          @betting_profile << bet_range
-        end
+        check_bet(bet_range, @bet)
       when 3
         roulette_menu()
       else
         "Invalid Input -- Please Try Again!"
         bet_outside()
       end
-    bet_outside()
   end
 
-  def spin_wheel()
+  def spin_wheel(bet = 0, bet_row = 0, bet_pair = 0, bet_single = 0)
     puts "=====================".yellow
     puts "| Bets on the Table |".yellow
     puts "=====================".yellow
@@ -206,6 +175,7 @@ class Roulette
           @player.wallet.add_wallet(@bet_pair + (@bet_pair * 17))
         elsif bet.include?(single_num) && bet.size === 3
           puts "You picked a row correctly!".cyan
+          binding.pry
           @player.wallet.add_wallet(@bet_row + (@bet_row * 11))
         elsif bet.include?(single_num) && bet.size === 12
           puts "You picked a 12-number range correctly!".cyan
@@ -230,6 +200,15 @@ class Roulette
       roulette_menu()
     else
       return
+    end
+  end
+
+  def check_bet(bet_type, bet_amount)
+    if @player.wallet.amount < bet_amount
+      puts "You don't have enough money!"
+    else
+      @player.wallet.sub_wallet(bet_amount)
+      @betting_profile << bet_type
     end
   end
 

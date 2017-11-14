@@ -25,7 +25,7 @@ class Player
   end
 
   def check_amount()
-    puts @wallet.amount === 0 ? "You have no money!" : "You have money!"
+    puts @wallet.amount === 0 ? "You have no money! GO HOME!" : "You have money!"
   end
 
 end
