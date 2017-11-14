@@ -15,8 +15,8 @@ class Casino
   def menu()
     @options = ["Roulette", "Blackjack", "Slots", "Craps"]
     puts "What game would you like to play?"
-    print '> '
     @options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}"}
+    print '> '
     choice = gets.to_i
     case choice
       when 1

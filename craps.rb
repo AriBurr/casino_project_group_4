@@ -17,11 +17,18 @@ class Craps
     @player = player
     puts "----- Let\'s play Craps, #{@player.name}! -----"
    @player.check_amount
+   to_bet
    @win_amount = 0
    @loss_amount = 0
     menu
   end
 
+  def to_bet
+    puts 'How much would you like to bet?'
+    print '> '
+    @bet = $stdin.gets.strip
+    @bet.to_f
+  end
 
   def game_one
     @first_roll = 0
@@ -63,8 +70,8 @@ def game_two
       puts "Player wins!"
       puts "House looses."
       @win_amount += 1
-      secondary_loop
-    else
+      game_two
+      else
       if @roll == 7
         puts "Rolled a #{@roll}."
         puts 'Player loses...'
@@ -73,17 +80,18 @@ def game_two
         puts "House wins!"
         user_stats
       end
+      end
     end
   end
 end
 
 
   def user_stats
-    puts 'User Win/Lose Stats'
+    puts "\n\nUser Win/Lose Stats"
     puts "Wins: #{@win_amount}.".colorize(:green)
     puts "Losses: #{@loss_amount}.".colorize(:red)
+    puts "\n\n"
     menu
-  end
   end
 
 
@@ -94,9 +102,9 @@ end
 
 
   def menu
-    puts '1.) To Play the game, press 1'
-    puts '2.) To View player stats, press 2'
-    puts '3.) To Exit the game, press 3'
+    puts '[1] To Play the game, press 1'
+    puts '[2] To View player stats, press 2'
+    puts '[3] To Exit the game, press 3'
     print '> '
     selection = $stdin.gets.strip.downcase
 
@@ -106,7 +114,7 @@ end
       when '2' || include?('view') || include?('stats')
         user_stats
       when '3' || include?('quit')
-        return 0
+        quit
       else
         puts "Invalid user input #{selection}. Please try again"
     end
