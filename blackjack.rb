@@ -5,6 +5,7 @@ require 'pry'
 require_relative 'wallet'
 require_relative 'card'
 require_relative 'deck'
+require_relative 'casino'
 
 
 class Blackjack
@@ -12,7 +13,7 @@ class Blackjack
   def initialize(player)
     @player = player
     @deck = Deck.new
-
+    #@casino = casino
     init_blackjack()
     init_blackjack2()
   end
@@ -27,15 +28,15 @@ end
 
 def blackjack_menu()
   puts "Rules - Deal, then decide to hit or stay---over 21 is a bust"
-  menu_options = ["Deal", "Back to Casino"]
-  #puts = "Rules are: Deal, hit but you must stay below 21 or you will bust!"
+  menu_options = ["Deal", "Exit"]
   menu_options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}" }
   action = gets.strip.to_i
 case action
   when 1
     deal()
   when 2
-    return
+    #@casino.menu
+    exit
   else
     puts "Invalid Input -- Please Try Again"
   end
@@ -46,11 +47,7 @@ puts "==========================".yellow
 puts "| Deal - $5 per hand |".yellow
 puts "==========================".yellow
   end
-
 #binding.pry
-
-#Deck.new()
-#Card.new()
 # Deal two cards
 #binding.pry
 def deal()
@@ -66,22 +63,20 @@ def deal()
 end
 
 def init_blackjack2()
-  puts "Now you must decide to stay or hit".yellow
 #binding.pry
 blackjack_menu2()
 end
 
   def blackjack_menu2()
-    puts "Hit or Stay--remember money is riding on this".green
+    puts "Hit or Stay--remember money is riding on this".cyan
     menu_options = ["Hit", "Stay"]
     menu_options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}"}
-      #puts = menu_options
-  action = gets.strip.to_i
+    action = gets.strip.to_i
   case action
     when 1
       hit()
     when 2
-      stay()
+      exit
 end
 end
   def hit()
@@ -90,7 +85,7 @@ end
     user_cards = shuffled.pop(1)
     puts "Dealer hand #{dealer_cards[0].rank} of #{dealer_cards[0].suit}"
     puts "Your hand #{user_cards[0].rank} of #{user_cards[0].suit}"
-
+exit
 end
 end
 
