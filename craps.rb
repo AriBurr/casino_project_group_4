@@ -23,12 +23,12 @@ class Craps
   end
 
 
-  def game
+  def game_one
     @first_roll = 0
     @roll = 0
     @point = 0
-    # @first_roll = @dice.roll.show_dice # Roll the Dice
-    puts 'Press Enter/Return to Roll the Dice.'.colorize(:light_blue)
+    puts "\n\t------ Game One - The Come Out Roll ------\n"
+    puts 'Press Enter/Return to Throw the Dice.'.colorize(:light_blue)
     input = $stdin.gets.strip
     @first_roll = @dice.roll
     puts "First Roll = #{@first_roll}."
@@ -36,23 +36,24 @@ class Craps
     if @first_roll == 7 || @first_roll == 11
       puts 'Player wins!'
       @win_amount += 1
-      game
+      menu
     elsif @first_roll == 2 || @first_roll == 3 || @first_roll == 12
-      puts "Player loses"
+      puts "Player loses."
+      puts ""
       @loss_amount  += 1
-      game
+      menu
     else
       @point = @first_roll
       puts "The point is #{@point}"
       is_won = false
-      puts "First roll is done. Now onto the challenging part.\n\n"
-      secondary_loop
+      game_two
     end
   end
 
 
-def secondary_loop
-  puts 'Press Enter/Return to roll the dice.'.colorize(:light_blue)
+def game_two
+  puts "\n\t----- Game Two - The Point -----\n"
+  puts 'Press Enter/Return to Throw the Dice.'.colorize(:light_blue)
   puts "The Point is #{@point}!".colorize(:yellow)
   input = $stdin.gets.strip
   while !@is_won
@@ -101,7 +102,7 @@ end
 
     case selection
       when '1' || include?('play')
-        game
+        game_one
       when '2' || include?('view') || include?('stats')
         user_stats
       when '3' || include?('quit')
