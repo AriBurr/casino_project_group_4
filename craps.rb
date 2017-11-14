@@ -85,12 +85,36 @@ def game_two
   end
 end
 
+  def instructions
+    puts "\n\n\t-------------- CRAPS INSTRUCTIONS --------------\n".colorize(:yellow)
+    puts "Craps consists of two games... On both games:"
+    puts "Player enteres amount to bet. If the user wins, every dollar is doubled."
+    puts "If the player loses, every penny bet now belongs to the house."
+    puts "\nThe first game is called The Come Out Roll."
+
+    puts "In The Come Out Roll, the odds are in favor of the player."
+    puts "If the player rolls a 7 or an 11, the player wins."
+    puts "If the player rolls a 2, 3, or 12, the player loses"
+    puts "\nIf 1, 4, 5, 6, 8, 9, or 10 are rolled, the game proceeds to the next game."
+
+    puts "\nThe next game is called The Point."
+    puts "If the user did not roll 7, 11, 2, 3, or 12, the number rolled"
+    puts "becomes The Point...\m"
+
+    puts "In game two, the user cannot lose the game unless rolling a 7."
+    puts "However, the player will not win unless rolling The Point."
+    puts "Once the game is finished, it will restart to Game 1 until the cycle is broken."
+    puts "\n\nPress enter/return to continue..."
+    $stdin.gets
+    menu
+  end
 
   def user_stats
     puts "\n\nUser Win/Lose Stats"
     puts "Wins: #{@win_amount}.".colorize(:green)
     puts "Losses: #{@loss_amount}.".colorize(:red)
-    puts "\n\n"
+    puts "\nYou have made: "
+    puts "You ahve lost: "
     menu
   end
 
@@ -104,7 +128,8 @@ end
   def menu
     puts '[1] To Play the game, press 1'
     puts '[2] To View player stats, press 2'
-    puts '[3] To Exit the game, press 3'
+    puts '[3] To view the Instructions, press 3'
+    puts '[4] To Exit the game, press 3'
     print '> '
     selection = $stdin.gets.strip.downcase
 
@@ -113,7 +138,9 @@ end
         game_one
       when '2' || include?('view') || include?('stats')
         user_stats
-      when '3' || include?('quit')
+      when '3' || include?('instructions') || include?('help')
+        instructions
+      when '4' || include?('quit')
         quit
       else
         puts "Invalid user input #{selection}. Please try again"
