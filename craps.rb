@@ -13,8 +13,9 @@ require_relative 'dice'
 
 
 class Craps
-  attr_accessor :player
-  def initialize(player)
+  attr_accessor :player, :casino
+  def initialize(player, casino)
+    @casino = casino
     @dice = Dice.new
     @player = player
     @wallet_amount = player.wallet.amount
@@ -25,7 +26,7 @@ class Craps
     @loss_qty = 0
     @win_amount = 0.00
     @loss_amount = 0.00
-    menu
+    game_menu
   end
 
   def to_bet
@@ -110,7 +111,7 @@ class Craps
     puts "Once the game is finished, it will restart to Game 1 until the cycle is broken."
     puts "\n\nPress enter/return to continue..."
     $stdin.gets
-    menu
+    game_menu
   end
 
   def user_stats
@@ -119,11 +120,11 @@ class Craps
     puts "Losses: #{@loss_qty}.".colorize(:red)
     puts "\nYou have made: "
     puts "You have lost: "
-    menu
+    game_menu
   end
     
     
-  def menu
+  def game_menu
   puts '[1] To Play the game, press 1'
   puts '[2] To View player stats, press 2'
   puts '[3] To view the Instructions, press 3'
@@ -139,7 +140,7 @@ class Craps
   when 3
     instructions
   when 4
-    return 0
+    @casino.menu
   else 
     puts 'Invalid user input. Please try again.'
     game_menu
