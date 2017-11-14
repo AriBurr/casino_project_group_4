@@ -14,7 +14,7 @@ class Blackjack
     @deck = Deck.new
 
     init_blackjack()
-    init_blackjack2
+    init_blackjack2()
   end
 
   def init_blackjack()
@@ -30,22 +30,11 @@ def blackjack_menu()
   menu_options = ["Deal", "Back to Casino"]
   #puts = "Rules are: Deal, hit but you must stay below 21 or you will bust!"
   menu_options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}" }
-  #puts = menu_options
   action = gets.strip.to_i
-  puts "Rules - Deal, decide--hit or stay---over 21 is a bust"
-  menu_options = ["Deal", "Hit me!", "Back to Casino"]
-  #puts = "Rules are: Deal, hit but you must stay below 21 or you will bust!"
-  menu_options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}" }
-  #puts = menu_options
-action = gets.strip.to_i
 case action
   when 1
     deal()
   when 2
-#binding.pry
-  when 3
-    hit()
-  when 4
     return
   else
     puts "Invalid Input -- Please Try Again"
@@ -83,7 +72,7 @@ blackjack_menu2()
 end
 
   def blackjack_menu2()
-    puts "Hit or Stay--remember money is riding on this"
+    puts "Hit or Stay--remember money is riding on this".green
     menu_options = ["Hit", "Stay"]
     menu_options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}"}
       #puts = menu_options
@@ -97,8 +86,11 @@ end
 end
   def hit()
     shuffled = @deck.shuffle_cards
-    dealer_cards = shuffled.shift(1)
-    user_cards = shuffled.shift(1)
+    dealer_cards = shuffled.pop(1)
+    user_cards = shuffled.pop(1)
+    puts "Dealer hand #{dealer_cards[0].rank} of #{dealer_cards[0].suit}"
+    puts "Your hand #{user_cards[0].rank} of #{user_cards[0].suit}"
+
 end
 end
 
