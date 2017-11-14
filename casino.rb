@@ -1,6 +1,7 @@
 require_relative 'player'
 require_relative 'roulette'
 require_relative 'craps'
+require_relative 'slotsdraft1'
 require 'colorize'
 require 'artii'
 require 'pry'

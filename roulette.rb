@@ -186,7 +186,7 @@ class Roulette
     @betting_profile.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
     puts "Spinning the wheel...".cyan
     sleep(1)
-    single_num = 1
+    single_num = rand(1..36)
     sleep(1)
     puts "The winning number is #{single_num}".cyan
     sleep(1)
