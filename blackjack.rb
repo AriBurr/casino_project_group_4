@@ -75,7 +75,7 @@ end
     when 1
       hit()
     when 2
-      exit
+      @casino.menu
 end
 end
   def hit()
@@ -84,7 +84,7 @@ end
     user_cards = shuffled.pop(1)
     puts "Dealer hand #{dealer_cards[0].rank} of #{dealer_cards[0].suit}"
     puts "Your hand #{user_cards[0].rank} of #{user_cards[0].suit}"
-exit
+    @casino.menu
 end
 end
 
