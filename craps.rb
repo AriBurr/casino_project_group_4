@@ -19,19 +19,19 @@ class Craps
     @dice = Dice.new
     @player = player
     @wallet_amount = player.wallet.amount
-    #@original_wallet = player.wallet_amount
+    @original_wallet = player.wallet.amount
     puts "----- Let\'s play Craps, #{@player.name}! -----"
     @player.check_amount
     @win_qty = 0
     @loss_qty = 0
-    @win_amount = 0.00
-    @loss_amount = 0.00
     game_menu
   end
 
   def to_bet
     puts 'How much would you like to bet?'
     print '> '
+
+
     @bet = $stdin.gets.strip
     @bet.to_f
   end
@@ -40,20 +40,29 @@ class Craps
     @first_roll = 0
     @roll = 0
     @point = 0
+
     puts "\n\t------ Game One - The Come Out Roll ------\n"
+    puts "How much would you like to bet?"
+    print '> '
+    @bet = $stdin.gets.strip.to_f
+
     puts 'Press Enter/Return to Throw the Dice.'.colorize(:light_blue)
     input = $stdin.gets.strip
     @first_roll = @dice.roll
+
     puts "First Roll = #{@first_roll}."
     if @first_roll == 7 || @first_roll == 11
       puts 'Player wins!'
-      @win_qty += 1
-      @win_amount += @win_amount * 2
-      puts "You won #{@win_amount}."
+      puts "You won."
+      @wallet_amount += (@bet.to_f * 2)
+      puts "You have made $#{@bet.to_f * 2}""
+
     elsif @first_roll == 2 || @first_roll == 3 || @first_roll == 12
       puts "Player loses."
-      puts ""
+      puts "House wins."
       @loss_qty  += 1
+      @wallet_amount -= (@bets.to_f * 2)
+      puts "You have lost $#{@bet.to_f * 2}"
     else
       @point = @first_roll
       puts "The point is #{@point}"
@@ -75,6 +84,8 @@ class Craps
           puts "Player wins!"
           puts "House looses."
           @win_qty += 1
+          @wallet_amount += (@bet.to_f * 2)
+          puts "You have made $#{@bet.to_f * 2}"
           game_menu
         else
         if @roll == 7
@@ -83,6 +94,8 @@ class Craps
           @loss_qty +=  1
           isWon = true
           puts "House wins!"
+          @wallet_amount -= (@bet.to_f * 2)
+          puts "You have lost $#{@bet.to_f * 2}"
           game_menu
         end
       end
@@ -118,8 +131,18 @@ class Craps
     puts "\n\nUser Win/Lose Stats"
     puts "Wins: #{@win_qty}.".colorize(:green)
     puts "Losses: #{@loss_qty}.".colorize(:red)
-    puts "\nYou have made: "
-    puts "You have lost: "
+    puts "Money in wallet: #{@wallet_amount}".colorize(:green)
+    if @wallet_amount < @original_wallet
+      puts "You started playing with #{@original_wallet}."
+      total_loss = @original_wallet - @wallet_amount
+      puts "You have lost #{total_loss}.".colorize(:red)
+    elsif @wallet_amount > @original_wallet
+      puts "You started playing with #{@original_wallet}."
+      total_gain = @wallet_amount
+      puts "You have made #{total_gain}.".colorize(:green)
+    else
+      puts "You have come out even.".colorize(:light_blue)
+    end
     game_menu
   end
     
@@ -141,6 +164,7 @@ class Craps
     instructions
   when 4
     @casino.menu
+
   else 
     puts 'Invalid user input. Please try again.'
     game_menu
