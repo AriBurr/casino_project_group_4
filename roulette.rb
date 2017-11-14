@@ -4,8 +4,9 @@ require_relative 'player'
 
 class Roulette
   attr_accessor :player
-  def initialize(player)
+  def initialize(player, casino)
     @player = player
+    @casino = casino
     @betting_profile = []
     roulette_menu()
   end
@@ -27,7 +28,14 @@ class Roulette
     display_roulette()
     @player.check_amount()
     puts "#{@player.name} has $#{@player.wallet.amount}"
-    menu_options = ["Rules -- Please Read First", "Bet Outside", "Bet Inside", "Spin the Wheel!", "Back to Casino"]
+    menu_options = [
+      "Rules -- Please Read First",
+      "View Betting Profile",
+      "Bet Outside",
+      "Bet Inside",
+      "Spin the Wheel!",
+      "Back to Casino"
+    ]
     menu_options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}" }
     print "> "
     action = gets.strip.to_i
@@ -35,13 +43,15 @@ class Roulette
       when 1
         roulette_rules()
       when 2
-        bet_outside()
+        betting_profile()
       when 3
-        bet_inside()
+        bet_outside()
       when 4
-        spin_wheel(@bet, @bet_row, @bet_pair, @bet_single)
+        bet_inside()
       when 5
-        return
+        spin_wheel(@bet, @bet_row, @bet_pair, @bet_single)
+      when 6
+        @casino.menu
       else
         puts "Invalid Input -- Please Try Again"
         roulette_menu()
@@ -69,6 +79,16 @@ class Roulette
     if action == ""
       roulette_menu()
     end
+  end
+
+  def betting_profile()
+    puts "===================".yellow
+    puts "| Betting Profile |".yellow
+    puts "===================".yellow
+    @betting_profile.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
+    puts "Press [enter] to continue."
+    print "> "
+    gets.strip
   end
 
   def bet_inside()
@@ -193,6 +213,7 @@ class Roulette
         end
       end
     end
+    @betting_profile = []
     puts "Press [enter] to continue."
     print "> "
     gets.strip
