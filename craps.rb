@@ -55,7 +55,7 @@ class Craps
       puts 'Player wins!'
       puts "You won."
       @wallet_amount += (@bet.to_f * 2)
-      puts "You have made $#{@bet.to_f * 2}""
+      puts "You have made $#{@bet.to_f * 2}"
 
     elsif @first_roll == 2 || @first_roll == 3 || @first_roll == 12
       puts "Player loses."
