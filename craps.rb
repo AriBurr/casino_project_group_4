@@ -89,7 +89,7 @@ end
 
   def quit
     puts 'Thanks for playing!'
-    exit 0
+    casino
   end
 
 
