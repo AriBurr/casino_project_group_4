@@ -1,4 +1,3 @@
-
 require 'pry'
 require 'colorize'
 require_relative 'player'
@@ -29,33 +28,38 @@ def slots
 
     puts 'Hello! Welcome to Slots'.yellow
     puts 'would you like to spin?'.yellow
-    puts '1) Spin ($.50)'.yellow
+    puts '1) Spin ($1)'.yellow
     puts '2) Exit'.yellow
     response = gets.to_i
 
 case response
 when 1
-  #@player.wallet.sub(.50)
+  @player.wallet.sub_wallet(1)
       sleep(1)
       puts winningslots[0]
       sleep(1)
       puts winningslots[1]
       sleep(1)
       puts winningslots[2]
+      binding.pry
     if winningslots[0] == winningslots[1] && winningslots[0] == winningslots[2]
       puts 'JACKPOT!!!'.yellow
-    #@player.wallet.add(25)
+      @player.wallet.add_wallet(100)
+    #  puts "#{@player.name} has $#{@player.wallet.amount}"
     elsif
       winningslots[0] == winningslots[1]
       puts 'YOU GOT A PAIR!'.yellow
-#     @player.wallet.add(5)
+     @player.wallet.add_wallet(25)
+     puts "#{@player.name} has $#{@player.wallet.amount}"
     elsif
     winningslots[1] == winningslots[2]
     puts 'YOU GOT A PAIR!'.yellow
-#     @player.wallet.add(5)
+    @player.wallet.add_wallet(25)
+    #puts "#{@player.name} has $#{@player.wallet.amount}"
 
     else
     puts "LOSER".red
+    puts "has $#{@player.wallet.amount}"
 #     @player.wallet.add(0)
     end
 when 2

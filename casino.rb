@@ -14,29 +14,34 @@ class Casino
   end
 
   def menu()
-    @options = ["Roulette", "Blackjack", "Slots", "Craps"]
-    puts "What game would you like to play?"
+    puts "==============================================".yellow
+    puts "***** ~ WELCOME TO THE DEVPOINT CASINO ~ *****".yellow
+    puts "==============================================".yellow
+    @player.check_amount()
+    puts "#{@player.name} has $#{@player.wallet.amount}".cyan
+    @options = ["Roulette", "Blackjack", "Slots", "Craps", "Exit"]
+    puts "What game would you like to play?".cyan
     @options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}"}
+    print "> "
     choice = gets.to_i
     case choice
       when 1
-        Roulette.new(@player)
+        Roulette.new(@player, self)
       when 2
-        Blackjack.new(@player)
+        Blackjack.new(@player, self)
       when 3
-        Slots.new(@player)
+        Slots.new(@player, self)
       when 4
-        Craps.new(@player)
+        Craps.new(@player, self)
+      when 5
+        puts "Thanks for playing!"
+        exit(1)
       else
         "Invalid -- Please Try Again"
         menu()
     end
     menu()
   end
-
-  # puts "This is the casino!"
-  #   puts "#{@player.name} has $#{@player.wallet.amount}"
-  #   @player.check_amount()
 
 end
 
