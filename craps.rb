@@ -112,5 +112,5 @@ end
     end
   end
 
-player= Player.new
-Craps.new(player)
+# player= Player.new
+# Craps.new(player)
