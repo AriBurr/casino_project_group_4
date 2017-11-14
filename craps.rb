@@ -89,7 +89,7 @@ end
 
   def quit
     puts 'Thanks for playing!'
-    casino
+    return 0
   end
 
 
@@ -106,7 +106,7 @@ end
       when '2' || include?('view') || include?('stats')
         user_stats
       when '3' || include?('quit')
-        quit
+        return 0
       else
         puts "Invalid user input #{selection}. Please try again"
     end
