@@ -16,8 +16,10 @@ class Casino
     puts "==============================================".yellow
     puts "***** ~ WELCOME TO THE DEVPOINT CASINO ~ *****".yellow
     puts "==============================================".yellow
+    @player.check_amount()
+    puts "#{@player.name} has $#{@player.wallet.amount}".cyan
     @options = ["Roulette", "Blackjack", "Slots", "Craps", "Exit"]
-    puts "What game would you like to play?"
+    puts "What game would you like to play?".cyan
     @options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}"}
     print "> "
     choice = gets.to_i

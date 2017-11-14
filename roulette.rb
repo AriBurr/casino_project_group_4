@@ -8,6 +8,7 @@ class Roulette
     @player = player
     @casino = casino
     @betting_profile = []
+    puts `say welcome to roulette`
     roulette_menu()
   end
 
@@ -27,7 +28,7 @@ class Roulette
     puts "===================================".yellow
     display_roulette()
     @player.check_amount()
-    puts "#{@player.name} has $#{@player.wallet.amount}"
+    puts "#{@player.name} has $#{@player.wallet.amount}".cyan
     menu_options = [
       "Rules -- Please Read First",
       "View Betting Profile",
@@ -101,7 +102,7 @@ class Roulette
     case choice
       when 1
         single = []
-        puts "Pick a single"
+        puts "Pick a single -- will only accept first number"
         print "> "
         single << gets.to_i
         puts "How much?"
@@ -111,19 +112,29 @@ class Roulette
       when 2
         puts "Pick a pair (ex. 1,2)"
         print "> "
-        @row = gets.strip.split(",").map(&:to_i)
-        puts "How much?"
-        print "> "
-        @bet_row = gets.to_i
-        check_bet(@row, @bet_row)
+        @pair = gets.strip.split(",").map(&:to_i)
+        if @pair.length > 2
+          puts "Invalid Pair! No one cheats the House!".red
+          bet_inside()
+        else
+          puts "How much?"
+          print "> "
+          @bet_pair = gets.to_i
+          check_bet(@pair, @bet_pair)
+        end
       when 3
         puts "Pick a row (ex. 1,2,3)"
         print "> "
-        pair = gets.strip.split(",").map(&:to_i)
-        puts "How much?"
-        print "> "
-        @bet_pair = gets.to_i
-        check_bet(pair, @bet_pair)
+        @row = gets.strip.split(",").map(&:to_i)
+        if @row.length > 3
+          puts "Invalid Row! No one cheats the House!".red
+          bet_inside()
+        else
+          puts "How much?"
+          print "> "
+          @bet_row = gets.to_i
+          check_bet(@row, @bet_row)
+        end
       when 4
         roulette_menu
       else
@@ -173,7 +184,9 @@ class Roulette
     puts "| Bets on the Table |".yellow
     puts "=====================".yellow
     @betting_profile.each_with_index { |bet, i| puts "[#{i + 1}] #{bet}" }
-    single_num = rand(1..36)
+    puts "Spinning the wheel...".cyan
+    sleep(1)
+    single_num = 1
     sleep(1)
     puts "The winning number is #{single_num}".cyan
     sleep(1)
@@ -194,7 +207,6 @@ class Roulette
           @player.wallet.add_wallet(@bet_pair + (@bet_pair * 17))
         elsif bet.include?(single_num) && bet.size === 3
           puts "You picked a row correctly!".cyan
-          binding.pry
           @player.wallet.add_wallet(@bet_row + (@bet_row * 11))
         elsif bet.include?(single_num) && bet.size === 12
           puts "You picked a 12-number range correctly!".cyan
@@ -208,6 +220,7 @@ class Roulette
         elsif bet.include?(single_num) && bet.size === 1
           puts "You picked a single correctly! Hope you bet a lot!".cyan
           @player.wallet.add_wallet(@bet_single + (@bet_single * 35))
+          `say ding ding ding`
         else
           puts "...no dice!".red
         end
