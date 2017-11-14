@@ -154,7 +154,6 @@ class Craps
   selection = $stdin.gets.to_i
 
   case selection
-<<<<<<< HEAD
     when 1
       game_one
     when 2
@@ -164,24 +163,9 @@ class Craps
     when 4
       @player.wallet.amount = @wallet_amount
       @casino.menu
-    else 
+    else
       puts 'Invalid user input. Please try again.'
       game_menu
     end
-=======
-  when 1
-    game_one
-  when 2
-    user_stats
-  when 3
-    instructions
-  when 4
-    @casino.menu
-
-  else
-    puts 'Invalid user input. Please try again.'
-    game_menu
-  end
->>>>>>> slots format
   end
 end
