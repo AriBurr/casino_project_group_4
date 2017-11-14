@@ -1,7 +1,6 @@
 require 'colorize'
 require 'pry'
 require_relative 'player'
-require_relative 'roulette_data'
 
 class Roulette
   attr_accessor :player
@@ -116,7 +115,7 @@ class Roulette
   def bet_outside()
     @bet = 10
     puts "All outside bets are $10.".red
-    puts "Please select [1] 1:1 bets or [2] 2:1 bets. Press [3] to continue.".blue
+    puts "Please select [1] 1:1 bets or [2] 2:1 bets. Press [3] to return.".blue
     print "> "
     choice = gets.to_i
     case choice
@@ -160,10 +159,10 @@ class Roulette
     sleep(1)
     @betting_profile.each do |bet|
       if bet.is_a? String
-        if single_num % 2 === 0 && bet == "even" || bet == "blue"
+        if single_num % 2 === 0 && bet == "EVEN" || bet == "BLUE"
           puts "You picked even or blue! Woohoo!".blue
           @player.wallet.add_wallet(@bet * 2)
-        elsif single_num % 2 != 0 && bet == "odd" || bet == "red"
+        elsif single_num % 2 != 0 && bet == "ODD" || bet == "RED"
           puts "You picked odd or red! Woohoo!".red
           @player.wallet.add_wallet(@bet * 2)
         else
@@ -190,17 +189,13 @@ class Roulette
           puts "You picked a single correctly! Hope you bet a lot!".cyan
           @player.wallet.add_wallet(@bet_single + (@bet_single * 35))
         else
-          puts "...no dice!"
+          puts "...no dice!".red
         end
       end
     end
-    puts "Would you like to play again?\n[1] Yes!\n[2] No!"
-    if gets.to_i === 1
-      @betting_profile = []
-      roulette_menu()
-    else
-      return
-    end
+    puts "Press [enter] to continue."
+    print "> "
+    gets.strip
   end
 
   def check_bet(bet_type, bet_amount)

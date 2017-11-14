@@ -16,11 +16,7 @@ class Casino
     @options = ["Roulette", "Blackjack", "Slots", "Craps"]
     puts "What game would you like to play?"
     @options.each_with_index { |opt, i| puts "[#{i + 1}] #{opt}"}
-<<<<<<< HEAD
-    print '> '
-=======
     print "> "
->>>>>>> roulette update
     choice = gets.to_i
     case choice
       when 1
