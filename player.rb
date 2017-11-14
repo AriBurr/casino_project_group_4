@@ -2,7 +2,7 @@ require_relative 'wallet'
 
 class Player
   MIN_AGE = 21
-  attr_accessor :wallet, :name, :age
+  attr_accessor :name, :age, :wallet
   def initialize()
     puts "Please enter name:"
     print '> '

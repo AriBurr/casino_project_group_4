@@ -34,7 +34,7 @@ class Casino
   end
 
   # puts "This is the casino!"
-  #   puts "#{@player.name} has $#{@player.wallet.amount}"
+    # puts "#{@player.name} has $#{@player.wallet.amount}"
   #   @player.check_amount()
 
 end
