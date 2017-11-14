@@ -9,6 +9,7 @@ require 'pry'
 require_relative 'player'
 require_relative 'dice'
 
+
 class Craps
   attr_accessor :player
   def initialize(player)
@@ -20,6 +21,7 @@ class Craps
    @loss_amount = 0
     menu
   end
+
 
   def game
     @first_roll = 0
@@ -48,6 +50,7 @@ class Craps
     end
   end
 
+
 def secondary_loop
   puts 'Press Enter/Return to roll the dice.'.colorize(:light_blue)
   puts "The Point is #{@point}!".colorize(:yellow)
@@ -73,6 +76,7 @@ def secondary_loop
   end
 end
 
+
   def user_stats
     puts 'User Win/Lose Stats'
     puts "Wins: #{@win_amount}.".colorize(:green)
@@ -80,6 +84,7 @@ end
     menu
   end
   end
+
 
   def quit
     puts 'Thanks for playing!'
