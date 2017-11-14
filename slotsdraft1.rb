@@ -29,8 +29,10 @@ class Slots
     winningslots << slots3
 
 
-    puts 'Hello! Welcome to Slots'.yellow
-    puts 'would you like to spin?'.yellow
+    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$".green
+    puts "***** ~ WELCOME TO SLOTS ~ *****".yellow
+    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$".green
+    puts 'Would you like to spin?'.yellow
     puts '1) Spin ($1)'.yellow
     puts '2) Exit'.yellow
     response = gets.to_i
@@ -39,27 +41,36 @@ class Slots
     when 1
       @player.wallet.sub_wallet(1)
       sleep(1)
-      puts winningslots[0]
+      print winningslots[0] + "   "
       sleep(1)
-      puts winningslots[1]
+      print winningslots[1] + "   "
       sleep(1)
-      puts winningslots[2]
+      print winningslots[2]
+      puts " "
       if winningslots[0] == winningslots[1] && winningslots[0] == winningslots[2]
-        puts 'JACKPOT!!!'.yellow
+        puts "$$$$$$$$$$$$$$$$$$$".green
+        puts "$ $ JACKPOT!!!! $ $".green
+        puts "$$$$$$$$$$$$$$$$$$$".green
         @player.wallet.add_wallet(100)
         puts "#{@player.name} has $#{@player.wallet.amount}"
       elsif
         winningslots[0] == winningslots[1]
-        puts 'YOU GOT A PAIR!'.yellow
+        puts "======================".green
+        puts "| $ YOU GOT A PAIR $ |".green
+        puts "======================".green
         @player.wallet.add_wallet(25)
         puts "#{@player.name} has $#{@player.wallet.amount}"
       elsif
         winningslots[1] == winningslots[2]
-        puts 'YOU GOT A PAIR!'.yellow
+        puts "======================".green
+        puts "| $ YOU GOT A PAIR $ |".green
+        puts "======================".green
         @player.wallet.add_wallet(25)
         puts "#{@player.name} has $#{@player.wallet.amount}"
       else
-        puts "LOSER".red
+        puts "=============".red
+        puts "| ! LOSER ! |".red
+        puts "=============".red
         puts "#{@player.name} has $#{@player.wallet.amount}"
       end
     when 2
@@ -75,10 +86,10 @@ class Slots
   end
 
   def spin_again
-    
-    puts "Would you like to play again?"
-    puts "1) Yes"
-    puts "2) Exit"
+
+    puts "Would you like to play again?".yellow
+    puts "1) Yes".yellow
+    puts "2) Exit".yellow
     response2 = gets.to_i
 
     case response2
@@ -87,8 +98,8 @@ class Slots
     when 2
       @casino.menu
     else
-      puts "invalid choice"
-      puts "please answer"
+      puts "Invalid Choice"
+      puts "Please Try Again"
       response2 = gets.to_i
     end
 
